@@ -42,7 +42,7 @@ export const MediaDisplay = ({
 
   if (type === "video") {
     return (
-      <div className={`relative overflow-hidden rounded-lg ${className}`}>
+      <div className={`relative overflow-hidden rounded-t-lg ${className}`}>
         <video
           id={`video-${src}`}
           src={src}
@@ -80,7 +80,7 @@ export const MediaDisplay = ({
   }
 
   return (
-    <div className={`relative overflow-hidden rounded-lg ${className}`}>
+    <div className={`relative overflow-hidden rounded-t-lg ${className}`}>
       <img
         src={src}
         alt={alt}

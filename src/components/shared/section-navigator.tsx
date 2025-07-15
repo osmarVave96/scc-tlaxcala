@@ -64,8 +64,8 @@ export const SectionNavigator = ({ sections, className = "" }: SectionNavigatorP
   if (!isVisible) return null;
 
   return (
-    <div className={`fixed left-8 top-1/2 transform -translate-y-1/2 z-30 hidden lg:block ${className}`}>
-      <div className="bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-lg p-4 min-w-[280px] max-w-[320px]">
+    <div className={` ${className}`}>
+      <div className="bg-white/95  rounded-lg  p-4 min-w-[280px] max-w-[320px]">
         <div className="border-l-4 border-purple-500 pl-4 mb-4">
           <h3 className="text-lg font-semibold text-gray-800 mb-1">
             Qué es la gobernanza climática
@@ -113,23 +113,6 @@ export const SectionNavigator = ({ sections, className = "" }: SectionNavigatorP
           ))}
         </nav>
         
-        {/* Progress indicator */}
-        <div className="mt-4 pt-4 border-t border-gray-200">
-          <div className="flex items-center justify-between text-xs text-gray-500">
-            <span>Progreso</span>
-            <span>
-              {sections.findIndex(s => s.id === activeSection) + 1} / {sections.length}
-            </span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
-            <div 
-              className="bg-purple-500 h-1.5 rounded-full transition-all duration-300"
-              style={{ 
-                width: `${((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100}%` 
-              }}
-            />
-          </div>
-        </div>
       </div>
     </div>
   );

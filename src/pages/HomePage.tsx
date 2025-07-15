@@ -1,9 +1,13 @@
-import { Play, TreePine, Recycle, BarChart3, CloudSun } from "lucide-react";
+import { TreePine, Recycle, BarChart3, CloudSun, Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Header } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { InfoCard } from "@/components/ui/info-card";
 import { IconCard } from "@/components/ui/icon-card";
+
+import marcoNormativo from "@/assets/placeholder/marcoNormativo.png";
+import { Input } from "@/components/ui/input";
+import Hero from "@/components/layout/Hero";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -11,17 +15,17 @@ const HomePage = () => {
   // Datos dinámicos para las cards de gobierno
   const governmentCards = [
     {
-      title: t("home.government.cards.normative.title"),
-      description: t("home.government.cards.normative.description"),
+      description: t("home.government.cards.normative.title"),
+      // description: t("home.government.cards.normative.description"),
       media: {
-        src: "/api/placeholder/400/300",
+        src: marcoNormativo,
         alt: "Marco normativo",
         type: "image" as const,
       },
     },
     {
-      title: t("home.government.cards.monitoring.title"),
-      description: t("home.government.cards.monitoring.description"),
+      description: t("home.government.cards.monitoring.title"),
+      // description: t("home.government.cards.monitoring.description"),
       media: {
         src: "/api/placeholder/400/300",
         alt: "Sistema Estatal de Cambio Climático",
@@ -29,8 +33,8 @@ const HomePage = () => {
       },
     },
     {
-      title: t("home.government.cards.citizen.title"),
-      description: t("home.government.cards.citizen.description"),
+      description: t("home.government.cards.citizen.title"),
+      // description: t("home.government.cards.citizen.description"),
       media: {
         src: "/api/placeholder/400/300",
         alt: "Observatorio Ciudadano",
@@ -63,54 +67,52 @@ const HomePage = () => {
     },
   ];
 
+  const whatIsClimateChangeCards = [
+    {
+      description: t("home.government.cards.normative.title"),
+      // description: t("home.government.cards.normative.description"),
+      media: {
+        src: marcoNormativo,
+        alt: "Marco normativo",
+        type: "image" as const,
+      },
+    },
+    {
+      description: t("home.government.cards.monitoring.title"),
+      // description: t("home.government.cards.monitoring.description"),
+      media: {
+        src: "/api/placeholder/400/300",
+        alt: "Sistema Estatal de Cambio Climático",
+        type: "image" as const,
+      },
+    },
+    {
+      description: t("home.government.cards.citizen.title"),
+      // description: t("home.government.cards.citizen.description"),
+      media: {
+        src: "/api/placeholder/400/300",
+        alt: "Observatorio Ciudadano",
+        type: "image" as const,
+      },
+    },
+    {
+      description: t("home.government.cards.citizen.title"),
+      // description: t("home.government.cards.citizen.description"),
+      media: {
+        src: "/api/placeholder/400/300",
+        alt: "Observatorio Ciudadano",
+        type: "image" as const,
+      },
+    },
+  ];
+  
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-green-800 to-green-600 text-white">
-        <div className="absolute inset-0 bg-black/40" />
-        <div
-          className="relative bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/api/placeholder/1200/600')",
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-green-900/80 to-green-700/80" />
-          <div className="relative container mx-auto px-4 py-24 md:py-32">
-            <div className="max-w-2xl">
-              <div className="mb-4">
-                <span className="text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
-                  CLIMA Y CAMBIO CLIMÁTICO
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                {t("home.hero.title")}
-              </h1>
-              <p className="text-lg md:text-xl mb-8 text-white/90">
-                {t("home.hero.subtitle")}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-8"
-                >
-                  {t("home.hero.getStarted")}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-green-800"
-                >
-                  <Play className="mr-2 h-5 w-5" />
-                  {t("home.hero.watchVideo")}
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero title={t("home.hero.title")} subtitle={t("home.hero.subtitle")} image={"/api/placeholder/1200/600"} hasMedia={true} buttonText={t("home.hero.getStarted")} buttonLink={"/#"} />
 
       {/* Government Section */}
       <section className="py-16 md:py-24">
@@ -127,9 +129,9 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 justify-center items-center">
             {governmentCards.map((card, index) => (
-              <InfoCard key={index} {...card} />
+              <InfoCard key={index} {...card}  />
             ))}
           </div>
 
@@ -148,10 +150,10 @@ const HomePage = () => {
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-sm text-green-600 font-medium mb-2">
+            <p className="text-sm text-subtitle font-medium mb-2">
               Información y datos sobre Cambio Climático
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-title mb-4">
               {t("home.information.title")}
             </h2>
           </div>
@@ -169,6 +171,65 @@ const HomePage = () => {
             >
               {t("home.information.knowMore")}
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white"> 
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="text-sm text-subtitle font-medium mb-2">
+              Información Climática
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-title mb-4">
+              ¿Qué es el cambio climático?
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 justify-center items-center">
+            {whatIsClimateChangeCards.map((card, index) => (
+              <InfoCard key={index} {...card} />
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button
+              size="lg"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-8"
+            >
+              Conoce cómo afecta a Tlaxcala
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-title mb-1">
+              Sé parte del cambio climático
+            </h2>
+            <p className="text-md text-red-600">
+            Entérate de las acciones climáticas y oportunidades para construir un mejor futuro
+            </p>
+          </div>
+          <div className="flex flex-row gap-4 mb-8 justify-center items-center w-full">
+            <div className="relative w-96">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Input
+                type="email"
+                placeholder="Correo electrónico"
+                className="pl-10 w-full"
+              />
+            </div>
+            
+            <Button
+              size="lg"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-8"
+            >
+              Suscríbete
+            </Button>
+            
           </div>
         </div>
       </section>

@@ -62,7 +62,8 @@ export const Header = () => {
             <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
               Contacto
             </Button>
-            <Button size="sm" className="bg-white text-orange-600">
+            <Button size="sm" className="bg-white text-orange-600 rounded-full h-11 w-11 p-0 items-center justify-center"
+                    style={{ borderRadius: "50%" }}>
               <Search className="h-4 w-4" />
             </Button>
           </nav>
