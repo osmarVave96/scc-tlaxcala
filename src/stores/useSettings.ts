@@ -35,6 +35,10 @@ export const HomePageInitialState: IHomePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 	second_section: {
 		id: 0,
@@ -46,6 +50,10 @@ export const HomePageInitialState: IHomePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 	third_section: {
 		id: 0,
@@ -57,6 +65,10 @@ export const HomePageInitialState: IHomePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 };
 
@@ -72,6 +84,10 @@ export const ClimateGovernancePageInitialState: IClimateGovernancePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 	second_section: {
 		id: 0,
@@ -83,6 +99,10 @@ export const ClimateGovernancePageInitialState: IClimateGovernancePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 	third_section: {
 		id: 0,
@@ -94,6 +114,10 @@ export const ClimateGovernancePageInitialState: IClimateGovernancePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 	fourth_section: {
 		id: 0,
@@ -105,6 +129,10 @@ export const ClimateGovernancePageInitialState: IClimateGovernancePageData = {
 		boton_texto: "",
 		button_text: "",
 		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
 	},
 };
 
