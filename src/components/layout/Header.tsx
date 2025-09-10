@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { useSettings } from "@/hooks/useSettings";
@@ -10,13 +10,14 @@ export const Header = () => {
   const { siteSettings } = useSettings();
   const navigate = useNavigate();
   const location = useLocation();
+  const [currentPath, setCurrentPath] = useState(location.pathname);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
 
-  const isActive = useCallback ((path: string) => {
-    return location.pathname === path;
+  useEffect(() => {
+    setCurrentPath(location.pathname);
   }, [location.pathname]);
 
   return (
@@ -43,7 +44,7 @@ export const Header = () => {
             <a 
               onClick={() => navigate("/")} 
               className={`text-sm cursor-pointer transition-colors whitespace-nowrap ${
-                isActive("/") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               Inicio
@@ -52,7 +53,7 @@ export const Header = () => {
             <a 
               onClick={() => navigate("/climate-governance")} 
               className={`flex items-center gap-3 cursor-pointer transition-colors text-center ${
-                isActive("/climate-governance") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/climate-governance" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -60,14 +61,14 @@ export const Header = () => {
                 <div>Climática</div>
               </div>
               <ChevronDown className={`mx-auto h-3 w-3 mt-1 ${
-                isActive("/climate-governance") ? "text-orange-500" : "text-orange-500"
+                currentPath === "/climate-governance" ? "text-orange-500" : "text-orange-500"
               }`} />
             </a>
             
             <a 
               href="#" 
               className={`cursor-pointer transition-colors text-center ${
-                isActive("/informacion-climatica") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/informacion-climatica" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -79,7 +80,7 @@ export const Header = () => {
             <a 
               href="#" 
               className={`cursor-pointer transition-colors text-center ${
-                isActive("/agenda-climatica") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/agenda-climatica" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -91,7 +92,7 @@ export const Header = () => {
             <a 
               href="#" 
               className={`cursor-pointer transition-colors text-center ${
-                isActive("/noticias") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/noticias" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -102,7 +103,7 @@ export const Header = () => {
             <a 
               href="#" 
               className={`flex items-center gap-3 cursor-pointer transition-colors text-center ${
-                isActive("/recursos-apoyo") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/recursos-apoyo" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -110,14 +111,14 @@ export const Header = () => {
                 <div>de apoyo</div>
               </div>
               <ChevronDown className={`mx-auto h-3 w-3 mt-1 ${
-                isActive("/recursos-apoyo") ? "text-orange-500" : "text-orange-500"
+                currentPath === "/recursos-apoyo" ? "text-orange-500" : "text-orange-500"
               }`} />
             </a>
             
             <a 
               href="#" 
               className={`cursor-pointer transition-colors text-center ${
-                isActive("/informacion-legal") ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/informacion-legal" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -157,7 +158,7 @@ export const Header = () => {
               <a 
                 onClick={() => {navigate("/") ; setIsMenuOpen(false)}} 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Inicio
@@ -165,42 +166,42 @@ export const Header = () => {
               <a 
                 onClick={() => {navigate("/climate-governance") ; setIsMenuOpen(false)}} 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/climate-governance") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/climate-governance" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Gobernanza Climática
               </a>
               <a 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/informacion-climatica") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/informacion-climatica" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Información Climática
               </a>
               <a 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/agenda-climatica") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/agenda-climatica" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Agenda Climática
               </a>
               <a 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/noticias") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/noticias" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Noticias
               </a>
               <a 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/recursos-apoyo") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/recursos-apoyo" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Recursos de apoyo
               </a>
               <a 
                 className={`block cursor-pointer px-3 py-2 transition-colors ${
-                  isActive("/informacion-legal") ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
+                  currentPath === "/informacion-legal" ? "text-orange-500" : "text-gray-800 hover:text-orange-500"
                 }`}
               >
                 Información Legal

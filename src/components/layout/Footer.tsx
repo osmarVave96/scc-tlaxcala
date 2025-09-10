@@ -2,10 +2,20 @@
 import { ImageDisplay } from "../ui/image-display";
 import { useSettings } from "@/hooks/useSettings";
 import { OptimizedImageDisplay } from "../ui/optimized-image-display";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
 export const Footer = () => {
   const { siteSettings } = useSettings();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [currentPath, setCurrentPath] = useState(location.pathname);
+
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  }, [location.pathname]);
+
   return (
     <footer className="bg-gray-100 py-12">
       <div className="container mx-auto px-4">
@@ -17,20 +27,36 @@ export const Footer = () => {
           <div className="md:col-span-1">
             <h3 className="font-bold text-gray-800 mb-4">Menú del sitio</h3>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><a href="/" className="hover:text-purple-600 transition-colors">Inicio</a></li>
-              <li><a href="/climate-governance" className="hover:text-purple-600 transition-colors">Gobernanza Climática</a></li>
-              <li><a href="#" className="hover:text-purple-600 transition-colors">Información Climática</a></li>
-              <li><a href="#" className="hover:text-purple-600 transition-colors">Agenda Climática</a></li>
-              <li><a href="#" className="hover:text-purple-600 transition-colors">Noticias</a></li>
+              <li><a onClick={() => navigate("/")} className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Inicio</a></li>
+              <li><a onClick={() => navigate("/climate-governance")} className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/climate-governance" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Gobernanza Climática</a></li>
+              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/informacion-climatica" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Información Climática</a></li>
+              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/agenda-climatica" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Agenda Climática</a></li>
+              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/noticias" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Noticias</a></li>
             </ul>
           </div>
 
           {/* Recursos de apoyo */}
           <div className="md:col-span-1">
             <ul className="space-y-2 text-sm text-gray-600 mt-8 md:mt-0">
-              <li><a href="#" className="hover:text-purple-600 transition-colors">Recursos de apoyo</a></li>
-              <li><a href="#" className="hover:text-purple-600 transition-colors">Información Legal</a></li>
-              <li><a href="#" className="hover:text-purple-600 transition-colors">Contacto</a></li>
+              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/recursos-apoyo" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Recursos de apoyo</a></li>
+              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/informacion-legal" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Información Legal</a></li>
+              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/contacto" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              }`}>Contacto</a></li>
             </ul>
           </div>
 
@@ -76,8 +102,8 @@ export const Footer = () => {
         <div className="border-t border-gray-300 mt-8 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex space-x-6 text-sm text-gray-600">
-              <a href="#" className="hover:text-purple-600 transition-colors">INFORMACIÓN LEGAL</a>
-              <a href="#" className="hover:text-purple-600 transition-colors">AVISO DE PRIVACIDAD</a>
+              <a href="#" className="hover:text-purple-600 transition-colors cursor-pointer">INFORMACIÓN LEGAL</a>
+              <a href="#" className="hover:text-purple-600 transition-colors cursor-pointer">AVISO DE PRIVACIDAD</a>
             </div>
             <div className="text-sm text-gray-600">
               TODOS LOS DERECHOS RESERVADOS ©{new Date().getFullYear()}
