@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 
 
 interface SectionTextsProps {
-    id?: number;
+    id?: number | string;
     items?: Array<IItemsSectionCards>;
     section?: string;
     title_1?: string;
@@ -38,6 +38,11 @@ const SectionTextsComponent = ({ id, title_1, title_2, title_3, items, button_te
         return `${withBackground ? 'bg-gray-100' : ''}`;
     }, [withBackground]);
 
+    const gridClassName = useMemo(() => {
+        const itemsLength = sortedItems.length;
+        return `grid grid-cols-1 md:grid-cols-3 ${itemsLength >= 4 ? 'lg:grid-cols-4' : `lg:grid-cols-${itemsLength || 1}`} mb-8 justify-items-center place-content-center gap-5 mx-auto max-w-6xl`;
+    }, [sortedItems.length]);
+
     const containerClassName = useMemo(() => {
         return `container mx-auto px-4 text-center ${withIcon ? 'py-8 md:py-16' : 'py-16 md:py-24'}`;
     }, [withIcon]);
@@ -63,7 +68,7 @@ const SectionTextsComponent = ({ id, title_1, title_2, title_3, items, button_te
                     {title_2 && <p className="text-xl text-subtitle max-w-3xl mx-auto mb-4">{title_2}</p>}
                 </div>
         
-                <div className="flex flex-row justify-center items-start pl-[10px] pr-[10.1406px] w-[1214.18px] h-[296px] flex-none order-2 mb-8 justify-items-center place-content-center gap-5 mx-auto max-w-6xl">
+                <div className={gridClassName}>
                     {sortedItems.map((card, index) => (
                         <ContentText 
                         key={`${card.title}-${index}`} 

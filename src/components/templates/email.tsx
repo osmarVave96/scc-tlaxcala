@@ -1,5 +1,5 @@
 import { useOptimizedImageUrl } from "@/hooks";
-import marcoNormativoPlaceholder from '@/assets/placeholder/marcoNormativo.png';
+import errorImage from '@/assets/placeholder/error.png';
 import { useSettings } from "@/hooks/useSettings";
 import { Mail } from "lucide-react";
 import { Input } from "../ui/input";
@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 
 const Email = () => {
   const { siteSettings } = useSettings();
-  const { imageUrl: backgroundEmailImageUrl } = useOptimizedImageUrl(siteSettings?.background_email_image, marcoNormativoPlaceholder);
+  const { imageUrl: backgroundEmailImageUrl } = useOptimizedImageUrl(siteSettings?.background_email_image, errorImage);
   return (
     <section className="relative bg-cover bg-center  py-32 md:py-24 h-[450px]"
         style={{

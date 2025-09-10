@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { buildImageUrl } from '@/lib/utils';
-import marcoNormativoPlaceholder from '@/assets/placeholder/marcoNormativo.png';
+import errorImage from '@/assets/placeholder/error.png';
 
 interface OptimizedImageDisplayProps {
   imagePath?: string | null;
@@ -18,7 +18,7 @@ export const OptimizedImageDisplay = memo<OptimizedImageDisplayProps>(({
   imagePath,
   alt = 'Image',
   className = '',
-  fallbackUrl = marcoNormativoPlaceholder,
+  fallbackUrl = errorImage,
   props
 }) => {
   // Memoizar la URL de la imagen para evitar recálculos innecesarios

@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import { Play } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useOptimizedImageUrl } from '@/hooks'
-import marcoNormativoPlaceholder from '@/assets/placeholder/marcoNormativo.png'
+import errorImage from '@/assets/placeholder/error.png';
 
 interface HeroProps {
   headerData?: {
@@ -20,7 +20,7 @@ interface HeroProps {
 
 const Hero = memo<HeroProps>(({ headerData }) => {
   const { t } = useTranslation()
-  const { imageUrl: heroImageUrl } = useOptimizedImageUrl(headerData?.image_internal, marcoNormativoPlaceholder)
+  const { imageUrl: heroImageUrl } = useOptimizedImageUrl(headerData?.image_internal, errorImage)
   
   const handleButtonClick = useCallback(() => {
     if (headerData?.button_action_url) {

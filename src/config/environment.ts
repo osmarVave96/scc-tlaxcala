@@ -5,7 +5,7 @@ export const ENV = {
   
   // API Configuration
   API: {
-    BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://cambioclimaticotlaxcala.mx/',
+    BASE_URL: import.meta.env.VITE_API_BASE_URL || ' https://api.cambioclimaticotlaxcala.mx/',
     TIMEOUT: parseInt(import.meta.env.VITE_API_TIMEOUT || '10000'),
   },
   
