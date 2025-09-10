@@ -47,7 +47,8 @@ const SectionChipsComponent = ({ id, title_1, title_2, title_3, items, button_te
                 </div>
                 <div className=" flex flex-row justify-center items-center gap-4 mb-8">
                     {items?.map((chip) => (
-                        <Chip key={chip.id} label={chip.title} />
+                        <Chip key={chip.id} label={chip.title} 
+                        id={chip.action_redirect || ""} />
                     ))}
                 </div>
 

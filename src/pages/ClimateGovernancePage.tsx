@@ -9,6 +9,11 @@ import { SectionTexts } from "@/components/layout/SectionTexts";
 const ClimateGovernancePage = () => {
   const { headerData, firstSection, secondSection, thirdSection, fourthSection } = useClimateGovernance();
 
+  console.log("firstSection", firstSection);
+  console.log("secondSection", secondSection);
+  console.log("thirdSection", thirdSection);
+  console.log("fourthSection", fourthSection);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -23,13 +28,13 @@ const ClimateGovernancePage = () => {
       <SectionChips {...firstSection} />
 
       {/* Second Section */}
-      <SectionTexts {...secondSection}  withIcon={true} />
+      <SectionTexts id="#comision" {...secondSection}  withIcon={true} />
 
       {/* Third Section */}
-      <SectionCards cards={thirdSection}  withBackground={true} withIcon={true} />
+      <SectionCards idSection="#observatorio" cards={thirdSection}  withBackground={true} withIcon={true} />
 
       {/* Fourth Section */}
-      <SectionCards cards={fourthSection} withIcon={true} />
+      <SectionCards idSection="#sistema" cards={fourthSection} withIcon={true} />
 
     </div>
   );

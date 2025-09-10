@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { useImageUrl } from '@/hooks';
-import marcoNormativoPlaceholder from '@/assets/placeholder/marcoNormativo.png';
+import errorImage from '@/assets/placeholder/error.png';
 
 interface ImageDisplayProps {
   imagePath?: string | null;
@@ -18,7 +18,7 @@ export const ImageDisplay = memo<ImageDisplayProps>(({
   imagePath,
   alt = 'Image',
   className = '',
-  fallbackUrl = marcoNormativoPlaceholder,
+  fallbackUrl = errorImage,
   props
 }) => {
   const imageUrl = useImageUrl(imagePath, fallbackUrl);

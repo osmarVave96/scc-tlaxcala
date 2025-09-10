@@ -48,6 +48,7 @@ export interface ISectionCards {
   button_text1: string;
   button2_action_url: string;
   button_text2: string;
+  action_redirect?: string;
 };
 
 export interface IItemsSectionCards {
@@ -58,6 +59,7 @@ export interface IItemsSectionCards {
   section: number;
   catalog_section: number | null;
   description: string;
+  action_redirect?: string;
 }
 
 export interface IHeader {
