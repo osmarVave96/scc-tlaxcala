@@ -10,6 +10,9 @@ interface SettingsContextType {
   refreshSettings: () => Promise<void>;
   refreshHomePage: () => Promise<void>;
   refreshClimateGovernancePage: () => Promise<void>;
+  // Global loading state
+  globalLoading: boolean;
+  setGlobalLoading: (loading: boolean) => void;
 }
 
 export const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

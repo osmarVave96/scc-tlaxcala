@@ -1,7 +1,20 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import APIConfig from '../config/api';
 
-// Base API response interface
+interface LoadingContext {
+  setGlobalLoading: (loading: boolean) => void;
+}
+
+interface CustomAxiosRequestConfig extends Partial<InternalAxiosRequestConfig> {
+  skipLoading?: boolean;
+}
+
+let globalLoadingContext: LoadingContext | null = null;
+
+export const registerLoadingContext = (context: LoadingContext) => {
+  globalLoadingContext = context;
+};
+
 export interface APIResponse<T = unknown> {
   data: T;
   message?: string;
@@ -45,9 +58,17 @@ class APIService {
     // Request interceptor
     instance.interceptors.request.use(
       (config) => {
+        if (globalLoadingContext && !(config as CustomAxiosRequestConfig).skipLoading) {
+          globalLoadingContext.setGlobalLoading(true);
+        }
         return config;
       },
       (error) => {
+        if (globalLoadingContext) {
+          setTimeout(() => {
+            globalLoadingContext?.setGlobalLoading(false);
+          }, 7000);
+        }
         console.error('❌ Request Error:', error);
         return Promise.reject(error);
       }
@@ -56,9 +77,19 @@ class APIService {
     // Response interceptor
     instance.interceptors.response.use(
       (response: AxiosResponse) => {
+        if (globalLoadingContext && !(response.config as CustomAxiosRequestConfig)?.skipLoading) {
+          setTimeout(() => {
+            globalLoadingContext?.setGlobalLoading(false);
+          }, 7000);
+        }
         return response;
       },
       (error) => {
+        if (globalLoadingContext && !(error.config as CustomAxiosRequestConfig)?.skipLoading) {
+          setTimeout(() => {
+            globalLoadingContext?.setGlobalLoading(false);
+          }, 7000);
+        }
         // Handle common error scenarios
         if (error.response) {
           console.error('❌ API Error Response:', {

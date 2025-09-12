@@ -2,12 +2,16 @@ import React, { useMemo, useCallback } from 'react';
 import { useSettingsStore } from '@/stores/useSettings';
 import { SettingsContext } from '@/contexts/SettingsContext';
 import useSettings from '@/hooks/settings';
+import { registerLoadingContext } from '@/services/apiService';
 
 interface SettingsProviderProps {
   children: React.ReactNode;
 }
 
 export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
+  // Global loading state - inicializar en false
+  const [globalLoading, setGlobalLoading] = React.useState(false);
+  
   // Use optimized hook with React Query
   const {
     homePageData,
@@ -21,6 +25,19 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
   } = useSettings();
 
   const { setSettings, setHomePage, setClimateGovernancePageData } = useSettingsStore();
+
+  // Inicializar el estado de loading cuando la app se carga
+  React.useEffect(() => {
+    // Si tenemos datos cargados, ocultar el loading inicial
+    if (siteSettings || homePageData || climateGovernancePageData) {
+      setGlobalLoading(false);
+    }
+  }, [siteSettings, homePageData, climateGovernancePageData]);
+
+  // Registrar el contexto de loading para APIService
+  React.useEffect(() => {
+    registerLoadingContext({ setGlobalLoading });
+  }, [setGlobalLoading]);
 
   // Update Zustand store when data changes
   React.useEffect(() => {
@@ -76,7 +93,9 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     refreshSettings: handleRefreshSettings,
     refreshHomePage: handleRefreshHomePage,
     refreshClimateGovernancePage: handleRefreshClimateGovernancePage,
-  }), [siteSettings, homePageData, climateGovernancePageData, isLoading, error, handleRefreshSettings, handleRefreshHomePage, handleRefreshClimateGovernancePage]);
+    globalLoading,
+    setGlobalLoading,
+  }), [siteSettings, homePageData, climateGovernancePageData, isLoading, error, handleRefreshSettings, handleRefreshHomePage, handleRefreshClimateGovernancePage, globalLoading, setGlobalLoading]);
 
   return (
     <SettingsContext.Provider value={contextValue}>

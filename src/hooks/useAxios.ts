@@ -1,7 +1,14 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import APIConfig from "../config/api";
+import { useGlobalLoading } from "./useGlobalLoading";
+
+interface CustomAxiosRequestConfig extends Partial<InternalAxiosRequestConfig> {
+  skipLoading?: boolean;
+}
 
 const useAxios = () => {
+  const { setGlobalLoading } = useGlobalLoading();
+  
   // Create axios instance with base configuration
   const createAxiosInstance = (): AxiosInstance => {
     const apiConfig = APIConfig.getInstance();
@@ -16,14 +23,41 @@ const useAxios = () => {
     });
 
     // Request interceptor
-    
+    instance.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        console.log('🔄 Config:', config);
+        // Solo mostrar loading si no está marcado para saltarse
+        if (!(config as CustomAxiosRequestConfig).skipLoading) {
+          setGlobalLoading(true);
+          console.log('🔄 Mostrando loading global...');
+        }
+        return config;
+      },
+      (error) => {
+        // Hide loading on request error
+        console.log('❌ Error en request, ocultando loading...');
+        setGlobalLoading(false);
+        return Promise.reject(error);
+      }
+    );
 
     // Response interceptor
     instance.interceptors.response.use(
-      (response: AxiosResponse) => {
+      (response) => {
+        console.log('🔄 Response:', response);
+        // Solo ocultar loading si no está marcado para saltarse
+        if (!(response.config as CustomAxiosRequestConfig)?.skipLoading) {
+          console.log('✅ Respuesta exitosa, ocultando loading...');
+          setGlobalLoading(false);
+        }
         return response;
       },
       (error) => {
+        // Hide loading on error response
+        if (!(error.config as CustomAxiosRequestConfig)?.skipLoading) {
+          console.log('❌ Error en response, ocultando loading...');
+          setGlobalLoading(false);
+        }
         // Handle common error scenarios
         if (error.response) {
           console.error('❌ API Error Response:', {
@@ -66,8 +100,17 @@ const useAxios = () => {
 
   const axiosInstance = createAxiosInstance();
 
+  // Custom axios wrapper with skipLoading support
+  const customAxios = {
+    get: (url: string, config?: CustomAxiosRequestConfig) => axiosInstance.get(url, config),
+    post: (url: string, data?: unknown, config?: CustomAxiosRequestConfig) => axiosInstance.post(url, data, config),
+    put: (url: string, data?: unknown, config?: CustomAxiosRequestConfig) => axiosInstance.put(url, data, config),
+    delete: (url: string, config?: CustomAxiosRequestConfig) => axiosInstance.delete(url, config),
+    patch: (url: string, data?: unknown, config?: CustomAxiosRequestConfig) => axiosInstance.patch(url, data, config),
+  };
+
   return { 
-    axios: axiosInstance,
+    axios: customAxios,
     apiConfig: APIConfig.getInstance()
   };
 };
