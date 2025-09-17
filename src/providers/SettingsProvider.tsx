@@ -17,22 +17,24 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     homePageData,
     siteSettings,
     climateGovernancePageData,
+    climateInformationPageData,
     isLoading,
     error,
     refreshHomePage,
     refreshSiteSettings,
     refreshClimateGovernancePage,
+    refreshClimateInformationPage,
   } = useSettings();
 
-  const { setSettings, setHomePage, setClimateGovernancePageData } = useSettingsStore();
+  const { setSettings, setHomePage, setClimateGovernancePageData, setClimateInformationPageData } = useSettingsStore();
 
   // Inicializar el estado de loading cuando la app se carga
   React.useEffect(() => {
     // Si tenemos datos cargados, ocultar el loading inicial
-    if (siteSettings || homePageData || climateGovernancePageData) {
+    if (siteSettings || homePageData || climateGovernancePageData || climateInformationPageData) {
       setGlobalLoading(false);
     }
-  }, [siteSettings, homePageData, climateGovernancePageData]);
+  }, [siteSettings, homePageData, climateGovernancePageData, climateInformationPageData]);
 
   // Registrar el contexto de loading para APIService
   React.useEffect(() => {
@@ -57,6 +59,12 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
       setClimateGovernancePageData(climateGovernancePageData);
     }
   }, [climateGovernancePageData, setClimateGovernancePageData]);
+
+  React.useEffect(() => {
+    if (climateInformationPageData) {
+      setClimateInformationPageData(climateInformationPageData);
+    }
+  }, [climateInformationPageData, setClimateInformationPageData]);
 
   // Wrapper functions to match expected types
   const handleRefreshSettings = useCallback(async () => {
@@ -83,19 +91,29 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     }
   }, [refreshClimateGovernancePage]);
 
+  const handleRefreshClimateInformationPage = useCallback(async () => {
+    try {
+      await refreshClimateInformationPage();
+    } catch (error) {
+      console.error('Error refreshing climate information page:', error);
+    }
+  }, [refreshClimateInformationPage]);
+
   // Memoized context value to prevent unnecessary re-renders
   const contextValue = useMemo(() => ({
     siteSettings,
     homePageData,
     climateGovernancePageData,
+    climateInformationPageData,
     isLoading,
     error: error?.message || null,
     refreshSettings: handleRefreshSettings,
     refreshHomePage: handleRefreshHomePage,
     refreshClimateGovernancePage: handleRefreshClimateGovernancePage,
+    refreshClimateInformationPage: handleRefreshClimateInformationPage,
     globalLoading,
     setGlobalLoading,
-  }), [siteSettings, homePageData, climateGovernancePageData, isLoading, error, handleRefreshSettings, handleRefreshHomePage, handleRefreshClimateGovernancePage, globalLoading, setGlobalLoading]);
+  }), [siteSettings, homePageData, climateGovernancePageData, climateInformationPageData, isLoading, error, handleRefreshSettings, handleRefreshHomePage, handleRefreshClimateGovernancePage, handleRefreshClimateInformationPage, globalLoading, setGlobalLoading]);
 
   return (
     <SettingsContext.Provider value={contextValue}>

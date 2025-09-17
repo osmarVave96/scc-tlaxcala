@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 // Lazy loaded pages
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const ClimateGovernancePage = lazy(() => import('@/pages/ClimateGovernancePage'));
-// const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
+const ClimateInformationPage = lazy(() => import('@/pages/ClimateInformation'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 
@@ -14,6 +14,7 @@ const AppRoutes = () => {
             {/* Public routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/climate-governance" element={<ClimateGovernancePage />} />
+            <Route path="/climate-information" element={<ClimateInformationPage />} />
 
             {/* Fallbacks */}
             <Route path="/404" element={<NotFoundPage />} />

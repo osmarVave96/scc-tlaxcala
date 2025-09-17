@@ -10,25 +10,35 @@ interface Section {
 interface SectionNavigatorProps {
   sections: Section[];
   className?: string;
-  title?: string;
+  showProgress?: boolean;
 }
 
-export const SectionNavigator = ({ sections, className = "", title = "Navegación" }: SectionNavigatorProps) => {
-  const [activeSection, setActiveSection] = useState<string>("");
+export const SectionNavigator = ({ sections, className = "", showProgress = false}: SectionNavigatorProps) => {
+  const [activeSection, setActiveSection] = useState<string>(sections[0].id);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+        // Encontrar la entrada con mayor intersección
+        let maxIntersectionRatio = 0;
+        let nextActiveId: string | null = null;
+
+        entries.forEach((entry: IntersectionObserverEntry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxIntersectionRatio) {
+            maxIntersectionRatio = entry.intersectionRatio;
+            nextActiveId = (entry.target as Element).id;
           }
         });
+
+        // Solo actualizar si encontramos una sección que intersecta
+        if (nextActiveId) {
+          setActiveSection(nextActiveId);
+        }
       },
       {
-        threshold: 0.3,
-        rootMargin: "-20% 0px -70% 0px",
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0], // Múltiples umbrales para mejor detección
+        rootMargin: "-10% 0px -60% 0px", // Ajustado para mejor precisión
       }
     );
 
@@ -53,19 +63,69 @@ export const SectionNavigator = ({ sections, className = "", title = "Navegació
     };
 
     // Delay observation to ensure DOM is ready
-    const observeTimer = setTimeout(observeElements, 100);
+    const observeTimer = setTimeout(() => {
+      observeElements();
+      
+      // Establecer sección inicial si no hay ninguna activa
+      setTimeout(() => {
+        if (!activeSection && sections.length > 0) {
+          const firstElement = document.getElementById(sections[0].id);
+          if (firstElement) {
+            const rect = firstElement.getBoundingClientRect();
+            // Si la primera sección está visible, activarla
+            if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+              setActiveSection(sections[0].id);
+            }
+          }
+        }
+      }, 200);
+    }, 100);
 
     // Show navigator after a delay
     const visibilityTimer = setTimeout(() => {
       setIsVisible(true);
     }, 1000);
 
+    // Agregar listener de scroll como respaldo
+    const handleScroll = () => {
+      let closestSection = null;
+      let closestDistance = Infinity;
+
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const distanceFromTop = Math.abs(rect.top - 100); // 100px offset para header
+          
+          if (rect.top <= 200 && rect.bottom >= 0 && distanceFromTop < closestDistance) {
+            closestDistance = distanceFromTop;
+            closestSection = section.id;
+          }
+        }
+      });
+
+      if (closestSection && closestSection !== activeSection) {
+        setActiveSection(closestSection);
+      }
+    };
+
+    // Throttle scroll handler
+    let scrollTimeout: NodeJS.Timeout;
+    const throttledScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScroll, 100);
+    };
+
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+
     return () => {
       observer.disconnect();
+      window.removeEventListener('scroll', throttledScroll);
       clearTimeout(observeTimer);
       clearTimeout(visibilityTimer);
+      clearTimeout(scrollTimeout);
     };
-  }, [sections]);
+  }, [sections, activeSection]);
 
   const handleSectionClick = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -75,20 +135,15 @@ export const SectionNavigator = ({ sections, className = "", title = "Navegació
         top: offsetTop,
         behavior: "smooth",
       });
+      setActiveSection(sectionId);
     }
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className={`sticky top-4 h-fit ${className}`}>
-      <div className="  rounded-lg p-4 min-w-[280px] max-w-[320px] border">
-        {/* Header */}
-        <div className="border-l-4 border-purple-500 pl-4 mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">
-            {title}
-          </h3>
-        </div>
+    <div className={`sticky top-4 h-fit ${className} transparent`}>
+      <div className="  rounded-lg p-4 min-w-[250px] max-w-[250px] border">
         
         {/* Navigation - Anchor Style */}
         <nav className="space-y-1">
@@ -97,27 +152,17 @@ export const SectionNavigator = ({ sections, className = "", title = "Navegació
               {/* Main section */}
               <button
                 onClick={() => handleSectionClick(section.id)}
-                className={`w-full text-left px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-3 group relative ${
-                  activeSection === section.id
-                    ? "bg-purple-50 text-purple-700 border-l-2 border-purple-500"
-                    : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
+                className={`w-full text-left px-3 py-1 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-3 group relative ${
+                  "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
                 }`}
               >
-                {/* Anchor dot */}
-                <div className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                {/* Anchor line */}
+                <div className={`w-1 h-8 transition-all duration-200 ${
                   activeSection === section.id
-                    ? "bg-purple-500 scale-125"
+                    ? "bg-purple-500"
                     : "bg-gray-300 group-hover:bg-gray-400"
                 }`} />
                 
-                {/* Section number */}
-                <span className={`text-xs font-mono ${
-                  activeSection === section.id
-                    ? "text-purple-600"
-                    : "text-gray-400"
-                }`}>
-                  {(index + 1).toString().padStart(2, '0')}
-                </span>
                 
                 {/* Section title */}
                 <span className="flex-1">{section.title}</span>
@@ -172,7 +217,7 @@ export const SectionNavigator = ({ sections, className = "", title = "Navegació
         </nav>
         
         {/* Progress indicator */}
-        <div className="mt-6 pt-4 border-t border-gray-200">
+        {showProgress && (<div className="mt-6 pt-4 border-t border-gray-200">
           <div className="flex items-center justify-between text-xs text-gray-500">
             <span>Progreso</span>
             <span>{sections.findIndex(s => s.id === activeSection) + 1} / {sections.length}</span>
@@ -185,7 +230,7 @@ export const SectionNavigator = ({ sections, className = "", title = "Navegació
               }}
             />
           </div>
-        </div>
+        </div>)}
       </div>
     </div>
   );

@@ -9,11 +9,6 @@ import { SectionTexts } from "@/components/layout/SectionTexts";
 const ClimateGovernancePage = () => {
   const { headerData, firstSection, secondSection, thirdSection, fourthSection } = useClimateGovernance();
 
-  console.log("firstSection", firstSection);
-  console.log("secondSection", secondSection);
-  console.log("thirdSection", thirdSection);
-  console.log("fourthSection", fourthSection);
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}

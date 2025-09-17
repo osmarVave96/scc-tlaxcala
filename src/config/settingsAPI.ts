@@ -11,6 +11,7 @@ class SettingsAPI {
 	static readonly GET_HOME_PAGE = "/home";
 	static readonly GET_SITE_SETTINGS = "/site-settings";
 	static readonly GET_CLIMATE_GOVERNANCE_PAGE = "/climate_governance";
+	static readonly GET_CLIMATE_INFORMATION_PAGE = "/climate_information";
 	static readonly SUBSCRIBE_TO_NEWSLETTER = "/subscribe";
 
 }

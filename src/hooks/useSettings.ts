@@ -8,6 +8,7 @@ export const useSettings = () => {
   const siteSettings = useMemo(() => context.siteSettings, [context.siteSettings]);
   const homePageData = useMemo(() => context.homePageData, [context.homePageData]);
   const climateGovernancePageData = useMemo(() => context.climateGovernancePageData, [context.climateGovernancePageData]);
+  const climateInformationPageData = useMemo(() => context.climateInformationPageData, [context.climateInformationPageData]);
   const isLoading = useMemo(() => context.isLoading, [context.isLoading]);
   const error = useMemo(() => context.error, [context.error]);
 
@@ -15,10 +16,12 @@ export const useSettings = () => {
   const refreshSettings = useCallback(() => context.refreshSettings(), [context.refreshSettings]);
   const refreshHomePage = useCallback(() => context.refreshHomePage(), [context.refreshHomePage]);
   const refreshClimateGovernancePage = useCallback(() => context.refreshClimateGovernancePage(), [context.refreshClimateGovernancePage]);
+  const refreshClimateInformationPage = useCallback(() => context.refreshClimateInformationPage(), [context.refreshClimateInformationPage]);
   // Memoized computed values
   const hasSettings = useMemo(() => Boolean(siteSettings), [siteSettings]);
   const hasHomePageData = useMemo(() => Boolean(homePageData), [homePageData]);
   const hasClimateGovernancePageData = useMemo(() => Boolean(climateGovernancePageData), [climateGovernancePageData]);
+  const hasClimateInformationPageData = useMemo(() => Boolean(climateInformationPageData), [climateInformationPageData]);
   // Memoized specific settings getters
   const getHeaderLogo = useCallback((useElectoralBan: boolean = false): string => {
     if (!siteSettings) return '';
@@ -63,6 +66,7 @@ export const useSettings = () => {
     siteSettings,
     homePageData,
     climateGovernancePageData,
+    climateInformationPageData,
     isLoading,
     error,
     
@@ -70,10 +74,12 @@ export const useSettings = () => {
     hasSettings,
     hasHomePageData,
     hasClimateGovernancePageData,
+    hasClimateInformationPageData,
     // Actions
     refreshSettings,
     refreshHomePage,
     refreshClimateGovernancePage,
+    refreshClimateInformationPage,
     // Specific getters
     getHeaderLogo,
     getFooterLogo,
