@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { Button } from '../ui/button'
 import { Play } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -28,6 +28,20 @@ const Hero = memo<HeroProps>(({ headerData }) => {
     }
   }, [headerData?.button_action_url]);
 
+  // Validación para títulos largos
+  const titleStyles = useMemo(() => {
+    const title = headerData?.title2 || headerData?.title1 || '';
+    const isLongTitle = title.length > 100;
+    
+    return {
+      containerClass: isLongTitle ? 'max-w-4xl' : 'max-w-xl',
+      titleClass: isLongTitle 
+        ? 'text-2xl md:text-5xl font-bold mb-6 leading-tight'
+        : 'text-4xl md:text-5xl font-bold mb-6 leading-tight'
+    };
+  }, [headerData?.title2, headerData?.title1]);
+
+  console.log("headerData", headerData);
   // Si no hay headerData, mostrar un estado de carga o datos por defecto
   if (!headerData) {
     return (
@@ -65,13 +79,13 @@ const Hero = memo<HeroProps>(({ headerData }) => {
         }}
       >
         <div className="relative container mx-auto px-4 py-24 md:py-32">
-          <div className="max-w-xl">
+          <div className={titleStyles.containerClass}>
             <div className="mb-4">
               <span className="text-sm font-medium px-3 text-white">
                 {headerData.title1}
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight" style={{ color: headerData.title2_color || '#77BB2A' }}>
+            <h1 className={titleStyles.titleClass} style={{ color: headerData.title2_color || '#77BB2A' }}>
               {headerData.title2 || headerData.title1}
             </h1>
             <p className="text-md md:text-xl mb-8 text-white/90">

@@ -3,8 +3,9 @@ export { default as useSettings } from './settings';
 export { useSettingsContext } from './useSettingsContext';
 export { useHomePage } from './useHomePage';
 export { useClimateGovernance } from './useClimateGovernance';
+export { useClimateInformation } from './useClimateInformation';
 export { useImageUrl } from './useImageUrl';
 export { useOptimizedImageUrl } from './useOptimizedImageUrl';
 
-// Re-export other hooks if they exist
-// export { useAxios } from './useAxios';
+// Global loading hook
+export { useGlobalLoading } from './useGlobalLoading';

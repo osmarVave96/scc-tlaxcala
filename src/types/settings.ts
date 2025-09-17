@@ -13,6 +13,14 @@ export interface IClimateGovernancePageData {
   fourth_section: ISectionCards;
 }
 
+export interface IClimateInformationPageData {
+  header:         Array<IHeader>;
+  first_section:  ISectionCards;
+  second_section: ISectionCards;
+  third_section:  ISectionCards;
+  fourth_section: ISectionCards;
+}
+
 export interface ISiteSettingsData {
   id:                            number;
   header_logo:                   string;
@@ -60,6 +68,9 @@ export interface IItemsSectionCards {
   catalog_section: number | null;
   description: string;
   action_redirect?: string;
+  boton_texto?: string;
+  button_text?: string;
+  button_action_url?: string;
 }
 
 export interface IHeader {

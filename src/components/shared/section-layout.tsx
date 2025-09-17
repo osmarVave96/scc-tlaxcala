@@ -10,7 +10,6 @@ interface Section {
 interface SectionLayoutProps {
   sections: Section[];
   children: ReactNode;
-  navigationTitle?: string;
   className?: string;
   contentClassName?: string;
   navigatorClassName?: string;
@@ -19,16 +18,14 @@ interface SectionLayoutProps {
 export const SectionLayout = ({ 
   sections, 
   children,
-  navigationTitle = "Navegación",
   className = "",
   contentClassName = "",
   navigatorClassName = ""
 }: SectionLayoutProps) => {
   return (
-    <div className={`mx-auto flex flex-row gap-8 ${className}`}>
+    <div className={`mx-auto flex flex-row gap-2 ${className}`}>
       <SectionNavigator 
-        sections={sections} 
-        title={navigationTitle}
+        sections={sections}
         className={navigatorClassName}
       />
       <div className={`flex-1 overflow-y-auto ${contentClassName}`}>

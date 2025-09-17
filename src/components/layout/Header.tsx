@@ -20,6 +20,7 @@ export const Header = () => {
     setCurrentPath(location.pathname);
   }, [location.pathname]);
 
+  console.log("siteSettings", siteSettings);
   return (
     <header className="bg-transparent flex items-center shadow-sm absolute top-0 z-50 w-full" 
     style={{ height: '118px' }}>
@@ -66,9 +67,9 @@ export const Header = () => {
             </a>
             
             <a 
-              href="#" 
+              onClick={() => navigate("/climate-information")}
               className={`cursor-pointer transition-colors text-center ${
-                currentPath === "/informacion-climatica" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/climate-information" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
