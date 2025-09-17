@@ -28,7 +28,6 @@ const Hero = memo<HeroProps>(({ headerData }) => {
     }
   }, [headerData?.button_action_url]);
 
-  // Validación para títulos largos
   const titleStyles = useMemo(() => {
     const title = headerData?.title2 || headerData?.title1 || '';
     const isLongTitle = title.length > 100;
@@ -41,8 +40,6 @@ const Hero = memo<HeroProps>(({ headerData }) => {
     };
   }, [headerData?.title2, headerData?.title1]);
 
-  console.log("headerData", headerData);
-  // Si no hay headerData, mostrar un estado de carga o datos por defecto
   if (!headerData) {
     return (
       <section className="relative bg-gradient-to-r from-green-800 to-green-600 text-white">

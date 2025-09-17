@@ -11,11 +11,6 @@ const ClimateInformationPage = () => {
   const idSecondSection =useMemo(() => secondSection?.title_1?.split(" ").join("-") || "", [secondSection]);
   const idThirdSection =useMemo(() => thirdSection?.title_1?.split(" ").join("-") || "", [thirdSection]);
   const idFourthSection =useMemo(() => fourthSection?.title_1?.split(" ").join("-") || "", [fourthSection]);
-  console.log("headerData", headerData);
-  console.log("firstSection", firstSection);
-  console.log("secondSection", secondSection);
-  console.log("thirdSection", thirdSection);
-  console.log("fourthSection", fourthSection);
 
   return (
     <div className="min-h-screen bg-gray-50">

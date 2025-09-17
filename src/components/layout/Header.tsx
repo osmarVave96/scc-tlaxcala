@@ -20,7 +20,6 @@ export const Header = () => {
     setCurrentPath(location.pathname);
   }, [location.pathname]);
 
-  console.log("siteSettings", siteSettings);
   return (
     <header className="bg-transparent flex items-center shadow-sm absolute top-0 z-50 w-full" 
     style={{ height: '118px' }}>
