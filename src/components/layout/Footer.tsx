@@ -33,14 +33,14 @@ export const Footer = () => {
               <li><a onClick={() => navigate("/climate-governance")} className={`hover:text-purple-600 transition-colors cursor-pointer ${
                 currentPath === "/climate-governance" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
               }`}>Gobernanza Climática</a></li>
-              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
-                currentPath === "/informacion-climatica" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              <li><a onClick={() => navigate("/climate-information")} className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/climate-information" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
               }`}>Información Climática</a></li>
-              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
-                currentPath === "/agenda-climatica" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              <li><a onClick={() => navigate("/climate-agenda")} className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/climate-agenda" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
               }`}>Agenda Climática</a></li>
-              <li><a href="#" className={`hover:text-purple-600 transition-colors cursor-pointer ${
-                currentPath === "/noticias" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
+              <li><a onClick={() => navigate("/news")} className={`hover:text-purple-600 transition-colors cursor-pointer ${
+                currentPath === "/news" ? "text-purple-600" : "text-gray-600 hover:text-purple-600"
               }`}>Noticias</a></li>
             </ul>
           </div>

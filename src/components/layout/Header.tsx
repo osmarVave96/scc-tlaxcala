@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { useSettings } from "@/hooks/useSettings";
-import { ImageDisplay } from "../ui/image-display";
 import { useNavigate, useLocation } from "react-router-dom";
+import { OptimizedImageDisplay } from "../ui/optimized-image-display";
+import defaultLogo from '@/assets/placeholder/default_logo.png';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,7 +37,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <ImageDisplay fallbackUrl={siteSettings?.header_logo} alt="Logo" props={{ width: 229, height: 100 }} />
+            <OptimizedImageDisplay fallbackUrl={defaultLogo} imagePath={siteSettings?.header_logo} alt="Logo" props={{ width: 229, height: 100 }} />
           </div>
           
           {/* Desktop Navigation */}
@@ -78,9 +79,9 @@ export const Header = () => {
             </a>
             
             <a 
-              href="#" 
+              onClick={() => navigate("/climate-agenda")} 
               className={`cursor-pointer transition-colors text-center ${
-                currentPath === "/agenda-climatica" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/climate-agenda" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">
@@ -90,9 +91,9 @@ export const Header = () => {
             </a>
             
             <a 
-              href="#" 
+              onClick={() => navigate("/news")} 
               className={`cursor-pointer transition-colors text-center ${
-                currentPath === "/noticias" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
+                currentPath === "/news" ? "text-orange-500" : "text-gray-100 hover:text-orange-500"
               }`}
             >
               <div className="text-sm leading-tight">

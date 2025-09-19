@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import { Play } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useOptimizedImageUrl } from '@/hooks'
-import errorImage from '@/assets/placeholder/error.png';
+import errorImage from '@/assets/backgrounds/background.jpg';
 
 interface HeroProps {
   headerData?: {
@@ -42,7 +42,7 @@ const Hero = memo<HeroProps>(({ headerData }) => {
 
   if (!headerData) {
     return (
-      <section className="relative bg-gradient-to-r from-green-800 to-green-600 text-white">
+      <section className="relative bg-gradient-to-r from-orange-800 to-orange-600 text-white">
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${heroImageUrl})` }}>
           <div className="relative container mx-auto px-4 py-24 md:py-32">
@@ -66,7 +66,7 @@ const Hero = memo<HeroProps>(({ headerData }) => {
   }
   
   return (
-    <section className="relative bg-gradient-to-r h-[700px] from-green-800 to-green-600 text-white">
+    <section className="relative bg-gradient-to-r h-[700px] from-orange-600 to-orange-500 text-white">
       <div className="absolute inset-0 bg-black/60" />
       <div
         className="relative bg-cover bg-center bg-no-repeat"
