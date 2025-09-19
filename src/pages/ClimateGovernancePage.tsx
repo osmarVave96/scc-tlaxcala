@@ -1,5 +1,4 @@
 
-import { Header } from "@/components/layout/Header";
 import Hero from "@/components/layout/Hero";
 import SectionCards from "@/components/layout/SectionCards";
 import { SectionChips } from "@/components/layout/SectionChips";
@@ -11,8 +10,6 @@ const ClimateGovernancePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <Header />
 
       {/* Section Navigator */}
 
