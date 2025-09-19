@@ -66,7 +66,7 @@ const Hero = memo<HeroProps>(({ headerData }) => {
   }
   
   return (
-    <section className="relative bg-gradient-to-r h-[700px] from-orange-600 to-orange-500 text-white">
+    <section className="relative bg-gradient-to-r h-[700px] from-black-600 to-black-500 text-white">
       <div className="absolute inset-0 bg-black/60" />
       <div
         className="relative bg-cover bg-center bg-no-repeat"
