@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { IClimateGovernancePageData, IClimateInformationPageData, IHomePageData, ISiteSettingsData } from "@/types/settings";
+import { IClimateAgendaPageData, IClimateGovernancePageData, IClimateInformationPageData, IHomePageData, ISiteSettingsData } from "@/types/settings";
 import APIService from "../services/apiService";
 
 interface NewsletterSubscriptionResponse {
@@ -17,6 +17,7 @@ const queryKeys = {
   siteSettings: ['siteSettings'] as const,
   climateGovernancePage: ['climateGovernancePage'] as const,
   climateInformationPage: ['climateInformationPage'] as const,
+  climateAgendaPage: ['climateAgendaPage'] as const,
 } as const;
 
 // API functions
@@ -43,6 +44,15 @@ const fetchClimateInformationPage = async (): Promise<IClimateInformationPageDat
     return await apiService.get<IClimateInformationPageData>(apiConfig.ENDPOINTS.CLIMATE_INFORMATION_PAGE) as unknown as IClimateInformationPageData;
   } catch (error) {
     console.error('Error fetching climate information page:', error);
+    throw error;
+  }
+};
+
+const fetchClimateAgendaPage = async (): Promise<IClimateAgendaPageData> => {
+  try {
+    return await apiService.get<IClimateAgendaPageData>(apiConfig.ENDPOINTS.CLIMATE_AGENDA_PAGE) as unknown as IClimateAgendaPageData;
+  } catch (error) {
+    console.error('Error fetching climate agenda page:', error);
     throw error;
   }
 };
@@ -101,6 +111,18 @@ const useSettings = () => {
     retry: 2,
   });
 
+  // Climate agenda page query
+
+  const climateAgendaPageQuery = useQuery<IClimateAgendaPageData>({
+    queryKey: queryKeys.climateAgendaPage,
+    queryFn: fetchClimateAgendaPage,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    gcTime: 20 * 60 * 1000, // 20 minutes (garbage collection time)
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: 2,
+  });
+
   const subscribeToNewsletter = async (email: string): Promise<NewsletterSubscriptionResponse> => {
     try {
       const response = await apiService.post<NewsletterSubscriptionResponse>(
@@ -121,6 +143,12 @@ const useSettings = () => {
     homePageError: homePageQuery.error,
     refreshHomePage: homePageQuery.refetch,
 
+    // Climate agenda page data
+    climateAgendaPageData: climateAgendaPageQuery.data || null,
+    climateAgendaPageIsLoading: climateAgendaPageQuery.isLoading,
+    climateAgendaPageError: climateAgendaPageQuery.error,
+    refreshClimateAgendaPage: climateAgendaPageQuery.refetch,
+
     // Climate governance page data
     climateGovernancePageData: climateGovernancePageQuery.data || null,
     climateGovernancePageIsLoading: climateGovernancePageQuery.isLoading,
@@ -140,10 +168,10 @@ const useSettings = () => {
     refreshSiteSettings: siteSettingsQuery.refetch,
     
     // Combined loading state
-    isLoading: homePageQuery.isLoading || siteSettingsQuery.isLoading || climateGovernancePageQuery.isLoading || climateInformationPageQuery.isLoading,
+    isLoading: homePageQuery.isLoading || siteSettingsQuery.isLoading || climateGovernancePageQuery.isLoading || climateInformationPageQuery.isLoading || climateAgendaPageQuery.isLoading,
     
     // Combined error state
-    error: homePageQuery.error || siteSettingsQuery.error || climateGovernancePageQuery.error || climateInformationPageQuery.error,
+    error: homePageQuery.error || siteSettingsQuery.error || climateGovernancePageQuery.error || climateInformationPageQuery.error || climateAgendaPageQuery.error,
     
     // Newsletter subscription
     subscribeToNewsletter,

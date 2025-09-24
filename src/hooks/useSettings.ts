@@ -9,6 +9,7 @@ export const useSettings = () => {
   const homePageData = useMemo(() => context.homePageData, [context.homePageData]);
   const climateGovernancePageData = useMemo(() => context.climateGovernancePageData, [context.climateGovernancePageData]);
   const climateInformationPageData = useMemo(() => context.climateInformationPageData, [context.climateInformationPageData]);
+  const climateAgendaPageData = useMemo(() => context.climateAgendaPageData, [context.climateAgendaPageData]);
   const isLoading = useMemo(() => context.isLoading, [context.isLoading]);
   const error = useMemo(() => context.error, [context.error]);
 
@@ -17,11 +18,13 @@ export const useSettings = () => {
   const refreshHomePage = useCallback(() => context.refreshHomePage(), [context.refreshHomePage]);
   const refreshClimateGovernancePage = useCallback(() => context.refreshClimateGovernancePage(), [context.refreshClimateGovernancePage]);
   const refreshClimateInformationPage = useCallback(() => context.refreshClimateInformationPage(), [context.refreshClimateInformationPage]);
+  const refreshClimateAgendaPage = useCallback(() => context.refreshClimateAgendaPage(), [context.refreshClimateAgendaPage]);
   // Memoized computed values
   const hasSettings = useMemo(() => Boolean(siteSettings), [siteSettings]);
   const hasHomePageData = useMemo(() => Boolean(homePageData), [homePageData]);
   const hasClimateGovernancePageData = useMemo(() => Boolean(climateGovernancePageData), [climateGovernancePageData]);
   const hasClimateInformationPageData = useMemo(() => Boolean(climateInformationPageData), [climateInformationPageData]);
+  const hasClimateAgendaPageData = useMemo(() => Boolean(climateAgendaPageData), [climateAgendaPageData]);
   // Memoized specific settings getters
   const getHeaderLogo = useCallback((useElectoralBan: boolean = false): string => {
     if (!siteSettings) return '';
@@ -67,6 +70,7 @@ export const useSettings = () => {
     homePageData,
     climateGovernancePageData,
     climateInformationPageData,
+    climateAgendaPageData,
     isLoading,
     error,
     
@@ -75,11 +79,13 @@ export const useSettings = () => {
     hasHomePageData,
     hasClimateGovernancePageData,
     hasClimateInformationPageData,
+    hasClimateAgendaPageData,
     // Actions
     refreshSettings,
     refreshHomePage,
     refreshClimateGovernancePage,
     refreshClimateInformationPage,
+    refreshClimateAgendaPage,
     // Specific getters
     getHeaderLogo,
     getFooterLogo,

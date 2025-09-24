@@ -156,6 +156,25 @@
   }
 }
 
+/* Recharts: remove focus outline on clicked slices */
+.recharts-wrapper {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+}
+
+/* Utility: hide scrollbars but keep scroll functionality */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 /* Custom typography utilities */
 @layer utilities {
   .text-heading {

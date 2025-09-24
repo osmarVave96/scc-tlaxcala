@@ -1,32 +1,26 @@
+import Hero from "@/components/layout/Hero";
 import { SectionChart } from "@/components/layout/SectionChart";
+import { SectionChips } from "@/components/layout/SectionChips";
 import SectionTable from "@/components/layout/SectionTable";
-import { StatusKind } from "@/components/ui/status-badge";
+import { useClimateAgenda } from "@/hooks";
 
 const ClimateAgendaPage = () => {
 
+  const { headerData, firstSection, secondSection, thirdSection, paccet } = useClimateAgenda();
+
   return (
     <div className="min-h-screen bg-gray-50">
-
-
-        <SectionChart />
+      <Hero headerData={headerData} />
+        <SectionChart {...firstSection} dataSection={paccet} withIcon={true} />
         <SectionTable
-          title="Avances en el PACCET"
-          description="Conoce las acciones que contribuyen a las metas del Programa de acción ante el cambio climático del estado de Tlaxcala"
+          title={secondSection?.title_1 || ''}
+          description={secondSection?.title_2 || ''}
+          withIcon={true}
+          withBackground={true}
           rows={[
-            {
-              avance:
-                "Presenta un alto riesgo debido a la caída de bloques por fracturamiento, lo que afecta la infraestructura, especialmente los caminos, aunque no impacta directamente bienes.",
-              fecha: "2025-03-04",
-              aporte: [
-                { label: "Eje 1", info: { title: "Eje 1", description: "Regulación, control y reducción...", href: "#" } },
-                { label: "Eje 2", info: { title: "Eje 2", description: "Regulación, control y reducción...", href: "#" } },
-                { label: "Eje 3", info: { title: "Eje 3", description: "Regulación, control y reducción...", href: "#" } },
-              ],
-              medida: "Caída de bloques",
-              status: "EN_PROCESO" as StatusKind,
-            },
           ]}
         />
+        <SectionChips {...thirdSection} withIcon={true} />
 
     </div>
   );
