@@ -21,6 +21,14 @@ export interface IClimateInformationPageData {
   fourth_section: ISectionCards;
 }
 
+export interface IClimateAgendaPageData {
+  header: Array<IHeader>;
+  first_section?: ISectionCards;
+  second_section?: ISectionCards;
+  third_section?: ISectionCards;
+  paccet?: IPaccet[];
+}
+
 export interface ISiteSettingsData {
   id:                            number;
   header_logo:                   string;
@@ -83,4 +91,25 @@ export interface IHeader {
   button_action_url: string;
   video_internal: string | null;
   image_internal: string;
+}
+
+export interface IPaccet {
+  id:           number;
+  items:        ItemPaccet[];
+  title:        string;
+  description1: string;
+  description2: string;
+  icon:         string;
+  color:        string;
+  order:        number;
+  hoverColor?:   string;
+  value?:        number;
+}
+
+export interface ItemPaccet {
+  id:          number;
+  title:       string;
+  description: string;
+  order:       number;
+  paccet:      number;
 }

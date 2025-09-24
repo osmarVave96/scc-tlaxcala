@@ -43,7 +43,7 @@ export function Table<T extends TableRowData>({ columns, data, emptyMessage = 'S
           {data.map((row, idx) => (
             <tr key={idx} className="border-t border-gray-100 align-top">
               {columns.map((c) => (
-                <td key={c.key} className={`px-4 py-4 text-sm ${c.className || ''}`}>
+                <td key={c.key} className={`px-4 py-4 text-sm text-paragraph ${c.className || ''}`}>
                   {c.render ? c.render(row) : (row as Record<string, unknown>)[c.key] as React.ReactNode}
                 </td>
               ))}

@@ -21,6 +21,7 @@ class APIConfig {
     SITE_SETTINGS: '/site-settings/',
     CLIMATE_GOVERNANCE_PAGE: '/climate_governance/',
     CLIMATE_INFORMATION_PAGE: '/climate_information/',
+    CLIMATE_AGENDA_PAGE: '/climate_agenda/',
     SUBSCRIBE_TO_NEWSLETTER: '/subscribe/',
   } as const;
 

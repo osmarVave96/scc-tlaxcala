@@ -4,6 +4,7 @@ export { useSettingsContext } from './useSettingsContext';
 export { useHomePage } from './useHomePage';
 export { useClimateGovernance } from './useClimateGovernance';
 export { useClimateInformation } from './useClimateInformation';
+export { useClimateAgenda } from './useClimateAgenda';
 export { useImageUrl } from './useImageUrl';
 export { useOptimizedImageUrl } from './useOptimizedImageUrl';
 

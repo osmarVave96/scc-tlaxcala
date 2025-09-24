@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { combine, devtools } from "zustand/middleware";
-import { IClimateGovernancePageData, IClimateInformationPageData, IHomePageData, ISiteSettingsData } from "@/types/settings";
+import { IClimateAgendaPageData, IClimateGovernancePageData, IClimateInformationPageData, IHomePageData, ISiteSettingsData } from "@/types/settings";
 
 export const SettingsInitialState: ISiteSettingsData = {
 	id: 0,
@@ -199,13 +199,33 @@ export const ClimateInformationPageInitialState: IClimateInformationPageData = {
 		button_text2: "",
 	},
 };
+
+export const ClimateAgendaPageInitialState: IClimateAgendaPageData = {
+	header: [],
+	first_section: {
+		id: 0,
+		items: [],
+		section: "",
+		title_1: "",
+		title_2: "",
+		title_3: "",
+		boton_texto: "",
+		button_text: "",
+		button_action_url: "",
+		button1_action_url: "",
+		button_text1: "",
+		button2_action_url: "",
+		button_text2: "",
+	},
+};
 export const useSettingsStore = create(
 	devtools(
-        combine([SettingsInitialState, HomePageInitialState, ClimateGovernancePageInitialState, ClimateInformationPageInitialState], (set, get) => ({
+        combine([SettingsInitialState, HomePageInitialState, ClimateGovernancePageInitialState, ClimateInformationPageInitialState, ClimateAgendaPageInitialState], (set, get) => ({
             setSettings: (settings: ISiteSettingsData) => set([settings, get()[1]]),
 			setHomePage: (homePage: IHomePageData) => set([get()[0], homePage]),
 			setClimateGovernancePageData: (climateGovernancePageData: IClimateGovernancePageData) => set([get()[0], get()[1], climateGovernancePageData]),
 			setClimateInformationPageData: (climateInformationPageData: IClimateInformationPageData) => set([get()[0], get()[1], get()[2], climateInformationPageData]),
+			setClimateAgendaPageData: (climateAgendaPageData: IClimateAgendaPageData) => set([get()[0], get()[1], get()[2], get()[3], climateAgendaPageData]),
         }))
 	)
 );  
